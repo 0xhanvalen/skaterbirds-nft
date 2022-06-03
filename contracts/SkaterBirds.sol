@@ -151,10 +151,18 @@ contract SkaterBirds is ERC721A, ERC2981 {
     {
         uint256 value = msg.value;
         address minter = msg.sender;
-        require(
-            slot1.totalMinted + _quantity <= slot0.presaleSupply,
-            "Out of wl"
-        );
+        if (slot1.hasTeamMinted) {
+            require(
+                slot1.totalMinted + _quantity <= (slot0.presaleSupply + 33),
+                "Out of wl"
+            );
+        }
+        if (!slot1.hasTeamMinted) {
+            require(
+                slot1.totalMinted + _quantity <= slot0.presaleSupply,
+                "Out of wl"
+            );
+        }
         bytes32 leaf = keccak256(abi.encodePacked(minter));
         bool isBoarded = MerkleProof.verify(
             _merkleProof,
@@ -181,10 +189,18 @@ contract SkaterBirds is ERC721A, ERC2981 {
     {
         uint256 value = msg.value;
         address minter = msg.sender;
-        require(
-            slot1.totalMinted + _quantity <= slot0.presaleSupply,
-            "Out of wl"
-        );
+        if (slot1.hasTeamMinted) {
+            require(
+                slot1.totalMinted + _quantity <= (slot0.presaleSupply + 33),
+                "Out of wl"
+            );
+        }
+        if (!slot1.hasTeamMinted) {
+            require(
+                slot1.totalMinted + _quantity <= slot0.presaleSupply,
+                "Out of wl"
+            );
+        }
         bytes32 leaf = keccak256(abi.encodePacked(minter));
         bool isDouble = MerkleProof.verify(
             _merkleProof,
