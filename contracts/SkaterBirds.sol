@@ -122,6 +122,7 @@ contract SkaterBirds is ERC721A, ERC2981 {
     function teamMint() external onlyOwner {
         require(!slot1.hasTeamMinted, "already called");
         slot1.totalMinted += 33;
+        slot1.hasTeamMinted = true;
         _safeMint(msg.sender, 33);
     }
 
