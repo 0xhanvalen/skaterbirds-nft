@@ -45,11 +45,11 @@ contract SkaterBirds is ERC721A, ERC2981 {
         slot0
             .unrevealedURI = "https://skatebirds.s3.us-west-1.amazonaws.com/prereveal/prereveal.json";
         slot0
-            .boardedList = 0x498ddd0cc1b84779a5f257ecaaae05c78fae21c2563250f9913e8bb44014fadf;
+            .boardedList = 0x1475eff9cf8c283118b0797063470ad45933574ef294e266643cdc6f224cd1e6;
         slot0
-            .doubleList = 0x25f8f5b9aca076b04c7a57e4d697f97ae3acb66908dfc9efebcfc6526137fa2b;
+            .doubleList = 0xab040653e8ba482b4e7623c5171043c945b6e066c6c2b20425a162ecbc002c4e;
         slot0
-            .premintList = 0xd2eb7eaf42d6369cd1ec1f09414c5260594c1f7ef7ad1188a6e12d947cb1824a;
+            .premintList = 0x966b298dea90b693999c73f45cb734f6ea4c44507196f700fa3a76d89cfa69af;
         slot0.owner = msg.sender;
         slot0.publicMintPrice = 0.125 ether;
         slot0.presaleMintPrice = 0.088 ether;
