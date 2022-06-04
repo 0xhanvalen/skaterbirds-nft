@@ -20,7 +20,6 @@ contract SkaterBirds is ERC721A, ERC2981 {
         bytes32 premintList;
         uint256 publicMintPrice;
         uint256 presaleMintPrice;
-        uint256 amountHeld;
         address owner;
     }
 
@@ -140,7 +139,6 @@ contract SkaterBirds is ERC721A, ERC2981 {
         );
         slot1.publicMintCounter[minter] += quantity;
         slot1.totalMinted += quantity;
-        slot0.amountHeld += value;
         _safeMint(minter, quantity);
     }
 
@@ -178,7 +176,6 @@ contract SkaterBirds is ERC721A, ERC2981 {
         slot1.presaleMintCounter[minter] += _quantity;
         slot1.totalMinted += _quantity;
         require(value >= slot0.presaleMintPrice * _quantity, "wrong price");
-        slot0.amountHeld += value;
         _safeMint(minter, _quantity);
     }
 
@@ -216,7 +213,6 @@ contract SkaterBirds is ERC721A, ERC2981 {
         slot1.presaleMintCounter[minter] += _quantity;
         slot1.totalMinted += _quantity;
         require(value >= slot0.presaleMintPrice * _quantity, "wrong price");
-        slot0.amountHeld += value;
         _safeMint(minter, _quantity);
     }
 
@@ -242,7 +238,6 @@ contract SkaterBirds is ERC721A, ERC2981 {
         slot1.presaleMintCounter[minter] += _quantity;
         slot1.totalMinted += _quantity;
         require(value >= _quantity * slot0.publicMintPrice, "wrong price");
-        slot0.amountHeld += value;
         _safeMint(minter, _quantity);
     }
 
@@ -264,12 +259,6 @@ contract SkaterBirds is ERC721A, ERC2981 {
         uint256 balance = address(this).balance;
         require(balance > 0);
         payable(msg.sender).transfer(address(this).balance);
-    }
-
-    function withdraw(uint256 _amount) external payable onlyOwner {
-        require(_amount <= slot0.amountHeld);
-        slot0.amountHeld -= _amount;
-        payable(msg.sender).transfer(_amount);
     }
 
     function supportsInterface(bytes4 interfaceId)
