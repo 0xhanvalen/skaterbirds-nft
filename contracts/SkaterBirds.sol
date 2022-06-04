@@ -75,6 +75,12 @@ contract SkaterBirds is ERC721A, ERC2981 {
         _;
     }
 
+    modifier onlyOrigin() {
+        // disallow access from contracts
+        require(msg.sender == tx.origin, "No bot");
+        _;
+    }
+
     /**
     @notice uint controls list to update - 0: boarded, 1: double, 2: premint
      */
@@ -125,7 +131,7 @@ contract SkaterBirds is ERC721A, ERC2981 {
         _safeMint(msg.sender, 33);
     }
 
-    function publicMint(uint8 quantity) external payable isPublicSale {
+    function publicMint(uint8 quantity) external payable onlyOrigin isPublicSale {
         uint256 value = msg.value;
         address minter = msg.sender;
         require(value >= (slot0.publicMintPrice * quantity), "Not Enough ETH");
@@ -145,6 +151,7 @@ contract SkaterBirds is ERC721A, ERC2981 {
     function boardedMint(uint8 _quantity, bytes32[] memory _merkleProof)
         external
         payable
+        onlyOrigin
         isPresale
     {
         uint256 value = msg.value;
@@ -182,6 +189,7 @@ contract SkaterBirds is ERC721A, ERC2981 {
     function doubleBoardedMint(uint8 _quantity, bytes32[] memory _merkleProof)
         external
         payable
+        onlyOrigin
         isPresale
     {
         uint256 value = msg.value;
@@ -219,6 +227,7 @@ contract SkaterBirds is ERC721A, ERC2981 {
     function preMint(uint8 _quantity, bytes32[] memory _merkleProof)
         external
         payable
+        onlyOrigin
         isRaffleMint
     {
         uint256 value = msg.value;
