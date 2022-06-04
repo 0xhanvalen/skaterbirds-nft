@@ -260,11 +260,16 @@ contract SkaterBirds is ERC721A, ERC2981 {
         }
     }
 
-    function withdraw() external payable onlyOwner {
-        address withdrawTarget = msg.sender;
-        uint256 amountToSend = slot0.amountHeld;
-        slot0.amountHeld = 0;
-        payable(withdrawTarget).transfer(amountToSend);
+    function withdrawAll() external onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0);
+        payable(msg.sender).transfer(address(this).balance);
+    }
+
+    function withdraw(uint256 _amount) external payable onlyOwner {
+        require(_amount <= slot0.amountHeld);
+        slot0.amountHeld -= _amount;
+        payable(msg.sender).transfer(_amount);
     }
 
     function supportsInterface(bytes4 interfaceId)
